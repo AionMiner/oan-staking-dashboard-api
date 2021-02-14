@@ -1,0 +1,84 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oan-stake-dashboard-api
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      name: oan-stake-dashboard-api
+  template:
+    metadata:
+      labels:
+        name: oan-stake-dashboard-api
+    spec:
+      containers:
+        - name: application
+          image: <oan-stake-dashboard-api_image:version>
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: rate_api_url
+              valueFrom:
+                secretKeyRef:
+                  name: oan-stake-dashboard-secrets
+                  key: rate_api_url
+            - name: redis_uri
+              value: "redis://redis-slave"
+            - name: batch_node
+              value: "false"
+            - name: web3rpc_url
+              value: "http://mainnet:8545"
+            - name: amity_web3rpc_url
+              value: "http://amity:8545"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: oan-stake-dashboard-api-service
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  selector:
+    name: oan-stake-dashboard-api
+---
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oan-stake-dashboard-api-batch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: oan-stake-dashboard-api-batch
+  template:
+    metadata:
+      labels:
+        name: oan-stake-dashboard-api-batch
+    spec:
+      containers:
+        - name: application
+          image: <oan-stake-dashboard-api_image:version>
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: rate_api_url
+              valueFrom:
+                secretKeyRef:
+                  name: oan-stake-dashboard-secrets
+                  key: rate_api_url
+            - name: redis_uri
+              value: "redis://redis-master-ext"
+            - name: batch_node
+              value: "true"
+            - name: web3rpc_url
+              value: "http://mainnet-batch:8545"
+            - name: amity_web3rpc_url
+              value: "http://amity:8545"

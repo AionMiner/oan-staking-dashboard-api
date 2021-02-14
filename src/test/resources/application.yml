@@ -1,0 +1,11 @@
+---
+batch_node: false
+web3rpc_url: http://mainnet
+amity_web3rpc_url: http://amity
+rate_api_url: http://rate_api_host
+
+---
+#logger:
+#  levels:
+#    root: DEBUG
+

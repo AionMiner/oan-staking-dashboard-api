@@ -1,0 +1,20 @@
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: amity
+subsets:
+  - addresses:
+      - ip: <amity_testnet_server_ip>
+    ports:
+      - port: 8545
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: amity
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8545
+      targetPort: 8545

@@ -1,0 +1,5 @@
+profile: service
+defaultPackage: oan.stake.indexer
+---
+testFramework: junit
+sourceLanguage: java

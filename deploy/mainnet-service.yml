@@ -1,0 +1,21 @@
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: mainnet
+subsets:
+  - addresses:
+      - ip: <aion_main_node_ip>
+      - ip: <aion_batch_node_ip>
+    ports:
+      - port: 8545
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: mainnet
+spec:
+  type: ClusterIP
+  ports:
+    - port: 8545
+      targetPort: 8545

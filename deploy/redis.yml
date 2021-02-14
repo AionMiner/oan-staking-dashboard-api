@@ -1,0 +1,23 @@
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: redis-master-ext
+subsets:
+  - addresses:
+      - ip: <redis_master_ext_ip>
+    ports:
+      - port: 6379
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis-master-ext
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6379
+      targetPort: 6379
+
+
+

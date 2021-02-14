@@ -1,0 +1,41 @@
+---
+micronaut:
+  application:
+    name: oan-stake-dashboard-api
+  server:
+    port: ${PORT:8080}
+    cors:
+      enabled: true
+      single-header: true
+      configurations:
+        web:
+          allowedOrigins:
+            - ^http(|s)://192.168.0.244:808(0|1|2|3|4)$
+            - ^http(|s)://192.168.0.228:808(0|1|2|3|4)$
+            - ^http(|s)://localhost:808(0|1|2)$
+            - ^http(|s):\/\/oan\.bloxbean\.com$
+            - ^http(|s):\/\/pages\.bloxbean\.com$
+            - ^http(|s):\/\/www\.bloxbean\.com$
+            - ^http(|s):\/\/dashboard-test\.bloxbean\.com$
+          allowedMethods:
+            - POST
+            - PUT
+            - GET
+---
+redis:
+  uri: redis://localhost
+  caches:
+    stake:
+      expire-after-write: 5m
+#      maximumSize: 50
+#    reward-histories:
+#      expire-after-write: 1m
+#      maximumSize: 3
+#      key-serializer: io.micronaut.jackson.serialize.JacksonObjectSerializer
+#      value-serializer: io.micronaut.jackson.serialize.JacksonObjectSerializer
+
+---
+batch_node: false
+web3rpc_url: http://mainnet
+amity_web3rpc_url: http://amity
+rate_api_url: http://rate_api_host

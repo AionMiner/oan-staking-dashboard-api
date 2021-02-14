@@ -1,0 +1,16 @@
+# ingress yaml
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: oan-stake-board-api-ingress-blue
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+    - host: <hostname>
+      http:
+        paths:
+          - backend:
+              serviceName: oan-stake-dashboard-api-service-blue
+              servicePort: 80

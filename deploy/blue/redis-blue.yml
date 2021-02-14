@@ -1,0 +1,21 @@
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: redis-master-ext-blue
+subsets:
+  - addresses:
+      - ip: <redis_master_ext_host_ip>
+    ports:
+      - port: 6380
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: redis-master-ext-blue
+spec:
+  type: ClusterIP
+  ports:
+    - port: 6380
+      targetPort: 6380
+
