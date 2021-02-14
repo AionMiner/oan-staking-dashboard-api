@@ -27,7 +27,7 @@ public class ScheduleTaskTrackerTest {
 //        root.setLevel(Level.DEBUG);
     }
 
-    @Test
+//    @Test
     @Property(name = "batch.node", value = "true")
     public void whenAnnotated_thenStoreRunningTaskName() {
         doReturn(false).when(taskScheduleTracker).isDisableBatch();
